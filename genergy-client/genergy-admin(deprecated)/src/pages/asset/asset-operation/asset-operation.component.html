@@ -1,0 +1,810 @@
+<app-layout>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>资产管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a routerLink="/asset/list">资产列表</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>资产上架</nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <form
+        class="asset-form"
+        nz-form
+        [formGroup]="assetInfoFormGroup"
+        nzLayout="horizontal"
+        (ngSubmit)="submitForm(assetInfoFormGroup.value)"
+    >
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>电站信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantName" nzRequired>电站名称</nz-form-label>
+                            <nz-form-control nzSpan="18" nzErrorTip="电站名称为必填项">
+                                <input
+                                    id="plantName"
+                                    nz-input
+                                    formControlName="plantName"
+                                    placeholder="请输入电站名称"
+                                    [disabled]="controlDisabled"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="psId" nzRequired>电站PS编号</nz-form-label>
+                            <nz-form-control nzSpan="18" nzErrorTip="电站PS编号为必填项">
+                                <input
+                                    id="psId"
+                                    nz-input
+                                    formControlName="psId"
+                                    placeholder="请输入电站PS编号"
+                                    [disabled]="controlDisabled"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="code" nzRequired>电站编码S/N</nz-form-label>
+                            <nz-form-control nzSpan="18" nzErrorTip="电站编码S/N为必填项">
+                                <input
+                                    id="code"
+                                    nz-input
+                                    formControlName="code"
+                                    placeholder="请输入电站编码S/N"
+                                    [disabled]="controlDisabled"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantType" nzRequired>电站类型</nz-form-label>
+                            <nz-form-control nzSpan="18" nzErrorTip="电站类型为必填项">
+                                <nz-select
+                                    id="plantType"
+                                    formControlName="plantType"
+                                    nzPlaceHolder="请选择电站类型"
+                                    [nzDisabled]="controlDisabled"
+                                >
+                                    <nz-option
+                                        *ngFor="let plantTypeName of PlantTypeNames; index as i"
+                                        [nzLabel]="plantTypeName"
+                                        [nzValue]="i"
+                                    ></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantStatus" nzRequired>电站状态</nz-form-label>
+                            <nz-form-control nzSpan="18" nzErrorTip="电站状态为必填项">
+                                <nz-select
+                                    id="plantStatus"
+                                    formControlName="plantStatus"
+                                    nzPlaceHolder="请选择电站状态"
+                                    [nzDisabled]="controlDisabled"
+                                >
+                                    <nz-option
+                                        *ngFor="let PlantStatusName of PlantStatusNames; index as i"
+                                        [nzLabel]="PlantStatusName"
+                                        [nzValue]="i"
+                                    ></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="installedPower" nzRequired>装机功率(kWh)</nz-form-label>
+                            <nz-form-control nzSpan="18" nzErrorTip="装机功率为必填项">
+                                <nz-input-number
+                                    id="installedPower"
+                                    formControlName="installedPower"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入装机功率"
+                                    [nzDisabled]="controlDisabled"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="estimatedAnnualEnergy">预计年发电量(kWh)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="estimatedAnnualEnergy"
+                                    formControlName="estimatedAnnualEnergy"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入预计年发电量"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="actualAnnualEnergy">实际年发电量(kWh)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="actualAnnualEnergy"
+                                    formControlName="actualAnnualEnergy"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入实际年发电量"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="estimatedAnnualEnergyEarnings"
+                                >预计年发电收益(元)</nz-form-label
+                            >
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="estimatedAnnualEnergyEarnings"
+                                    formControlName="estimatedAnnualEnergyEarnings"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入预计年发电收益"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="actualAnnualEnergyEarnings">实际年发电收益(元)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="actualAnnualEnergyEarnings"
+                                    formControlName="actualAnnualEnergyEarnings"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入实际年发电收益"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="estimatedAnnualEnergyMinEarningsRate"
+                                >预计年发电最小收益率</nz-form-label
+                            >
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="estimatedAnnualEnergyMinEarningsRate"
+                                    formControlName="estimatedAnnualEnergyMinEarningsRate"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入预计年发电最小收益率"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="estimatedAnnualEnergyMaxEarningsRate"
+                                >预计年发电最大收益率</nz-form-label
+                            >
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="estimatedAnnualEnergyMaxEarningsRate"
+                                    formControlName="estimatedAnnualEnergyMaxEarningsRate"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    [nzPrecision]="2"
+                                    nzPlaceHolder="请输入预计年发电最大收益率"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="electricityPrice">上网电价(元)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="electricityPrice"
+                                    formControlName="electricityPrice"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    nzPlaceHolder="请输入上网电价"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="energyTerm">发电年限(天)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="energyTerm"
+                                    formControlName="energyTerm"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    nzPlaceHolder="请输入发电年限"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="residualEnergyTerm">剩余发电年限(天)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="residualEnergyTerm"
+                                    formControlName="residualEnergyTerm"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    nzPlaceHolder="请输入剩余发电年限"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="constructionCompany">建设公司</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="constructionCompany"
+                                    nz-input
+                                    formControlName="constructionCompany"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入建设公司"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="completedDate">建成日期</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-date-picker
+                                    id="completedDate"
+                                    formControlName="completedDate"
+                                    [nzDisabled]="controlDisabled"
+                                    nzFormat="yyyy/MM/dd"
+                                    nzPlaceHolder="请输入建成日期"
+                                ></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="gridConnectedDate">并网日期</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-date-picker
+                                    id="gridConnectedDate"
+                                    formControlName="gridConnectedDate"
+                                    [nzDisabled]="controlDisabled"
+                                    nzFormat="yyyy/MM/dd"
+                                    nzPlaceHolder="请输入并网日期"
+                                ></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="regions">行政区划</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-cascader
+                                    id="regions"
+                                    [nzOptions]="regionOptions"
+                                    formControlName="regions"
+                                    [nzDisabled]="controlDisabled"
+                                    (ngModelChange)="handleRegionsChange($event)"
+                                    nzPlaceHolder="请选择行政区划"
+                                ></nz-cascader>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="address">详细地址</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="address"
+                                    nz-input
+                                    formControlName="address"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入详细地址"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="componentTotal">组件总数</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="componentTotal"
+                                    formControlName="componentTotal"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    nzPlaceHolder="请输入组件总数"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="componentSupplier">组件厂家</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="componentSupplier"
+                                    nz-input
+                                    formControlName="componentSupplier"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入组件厂家"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="componentModel">组件型号</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="componentModel"
+                                    nz-input
+                                    formControlName="componentModel"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入组件型号"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="inverterSupplier">逆变器厂家</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="inverterSupplier"
+                                    nz-input
+                                    formControlName="inverterSupplier"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入逆变器厂家"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="inverterModel">逆变器型号</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="inverterModel"
+                                    nz-input
+                                    formControlName="inverterModel"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入逆变器型号"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="collectorSupplier">采集器厂家</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="collectorSupplier"
+                                    nz-input
+                                    formControlName="collectorSupplier"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入采集器厂家"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="collectorModel">采集器型号</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="collectorModel"
+                                    nz-input
+                                    formControlName="collectorModel"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入采集器型号"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>组织信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="companyName">业主/企业名称</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="companyName"
+                                    nz-input
+                                    formControlName="companyName"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入业主/企业名称"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="companyType">企业类型</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-select
+                                    id="companyType"
+                                    formControlName="companyType"
+                                    [nzDisabled]="controlDisabled"
+                                    nzPlaceHolder="请选择企业类型"
+                                >
+                                    <nz-option
+                                        *ngFor="let CompanyTypeName of CompanyTypeNames; index as i"
+                                        [nzLabel]="CompanyTypeName"
+                                        [nzValue]="i"
+                                    ></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="companyAddress">公司地址</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="companyAddress"
+                                    nz-input
+                                    formControlName="companyAddress"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入公司地址"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="corpName">法人代表</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="corpName"
+                                    nz-input
+                                    formControlName="corpName"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入法人代表"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="corpCertType">法人证件类型</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-select
+                                    id="corpCertType"
+                                    formControlName="corpCertType"
+                                    [nzDisabled]="controlDisabled"
+                                    nzPlaceHolder="请选择法人证件类型"
+                                >
+                                    <nz-option
+                                        *ngFor="let CorpCertTypeName of CorpCertTypeNames; index as i"
+                                        [nzLabel]="CorpCertTypeName"
+                                        [nzValue]="i"
+                                    ></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="corpCertNo">法人证件号码</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="corpCertNo"
+                                    nz-input
+                                    formControlName="corpCertNo"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入法人证件号码"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>上架信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantConstructionValue">电站建设价值(元)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="plantConstructionValue"
+                                    formControlName="plantConstructionValue"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    nzPlaceHolder="请输入电站建设价值"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantPresellValue">电站预售价值(元)</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="plantPresellValue"
+                                    formControlName="plantPresellValue"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="1"
+                                    nzPlaceHolder="请输入电站预售价值"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantDepreciationRate">电站折旧率</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <nz-input-number
+                                    id="plantDepreciationRate"
+                                    formControlName="plantDepreciationRate"
+                                    [nzDisabled]="controlDisabled"
+                                    [nzMin]="0"
+                                    [nzStep]="0.01"
+                                    [nzMax]="1"
+                                    nzPlaceHolder="请输入电站折旧率"
+                                ></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantFeature">电站特点</nz-form-label>
+                            <nz-form-control nzSpan="18">
+                                <input
+                                    id="plantFeature"
+                                    nz-input
+                                    formControlName="plantFeature"
+                                    [disabled]="controlDisabled"
+                                    placeholder="请输入电站特点"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="2" nzFor="description">描述</nz-form-label>
+                            <nz-form-control nzSpan="22">
+                                <textarea
+                                    id="description"
+                                    nz-input
+                                    formControlName="description"
+                                    [disabled]="controlDisabled"
+                                    [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                                    placeholder="请输入描述"
+                                ></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>相关证件文件</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="4" *ngFor="let name of CertFileTypeNames; index as i">
+                        <nz-upload
+                            *ngIf="mode !== 2"
+                            class="upload-cert"
+                            nzAccept="image/jpeg,image/png,image/gif"
+                            nzFileType="image/jpeg,image/png,image/gif"
+                            nzSize="5120"
+                            [nzHeaders]="headers"
+                            [nzAction]="UploadApis.cert + (i + 1)"
+                            nzName="file"
+                            nzListType="picture-card"
+                            [nzShowUploadList]="false"
+                            [nzBeforeUpload]="handleUploadBefore"
+                            (nzChange)="handleUploadChange($event, 1, i + 1)"
+                        >
+                            <ng-container *ngIf="!certFiles.get(i + 1)">
+                                <i class="upload-icon" nz-icon [nzType]="'plus'"></i>
+                                <div class="upload-text">{{ name }}</div>
+                            </ng-container>
+                            <ng-container *ngIf="certFiles.get(i + 1)">
+                                <img class="upload-img" [src]="UploadUrl + certFiles.get(i + 1)" />
+                            </ng-container>
+                        </nz-upload>
+
+                        <div *ngIf="mode === 2 && certFiles.get(i + 1)" class="img-container">
+                            <img [src]="UploadUrl + certFiles.get(i + 1)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>相关法律文件</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="4" *ngFor="let name of LegalFileTypeNames; index as i">
+                        <nz-upload
+                            *ngIf="mode !== 2"
+                            class="upload-legal"
+                            nzAccept="application/pdf"
+                            nzFileType="application/pdf"
+                            nzSize="10240"
+                            [nzHeaders]="headers"
+                            [nzAction]="UploadApis.legal + (i + 1)"
+                            nzName="file"
+                            nzListType="picture-card"
+                            [nzShowUploadList]="false"
+                            [nzBeforeUpload]="handleUploadBefore"
+                            (nzChange)="handleUploadChange($event, 2, i + 1)"
+                        >
+                            <ng-container *ngIf="!legalFiles.get(i + 1)">
+                                <i class="upload-icon" nz-icon [nzType]="'plus'"></i>
+                                <div class="upload-text">{{ name }}</div>
+                            </ng-container>
+                            <ng-container *ngIf="legalFiles.get(i + 1)">
+                                <a [href]="UploadUrl + legalFiles.get(i + 1)" target="_blank">{{ name + '.pdf' }}</a>
+                            </ng-container>
+                        </nz-upload>
+                        <ng-container *ngIf="mode === 2 && legalFiles.get(i + 1)">
+                            <a [href]="UploadUrl + legalFiles.get(i + 1)" target="_blank">{{ name + '.pdf' }}</a>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>现场图片</h2>
+            </header>
+            <div class="genergy-block-body">
+                <nz-upload
+                    *ngIf="mode !== 2"
+                    class="upload-imgs"
+                    nzAccept="image/jpeg,image/png,image/gif"
+                    nzFileType="image/jpeg,image/png,image/gif"
+                    nzSize="5120"
+                    [nzHeaders]="headers"
+                    [nzAction]="UploadApis.imgs"
+                    nzName="files"
+                    nzListType="picture-card"
+                    [(nzFileList)]="imgs"
+                    [nzShowButton]="imgs.length < 5"
+                    (nzChange)="handleUploadChange($event, 3)"
+                >
+                    <ng-container>
+                        <i nz-icon nzType="plus"></i>
+                        <div class="upload-text">现场图片上传</div>
+                    </ng-container>
+                </nz-upload>
+
+                <div nz-row [nzGutter]="24" *ngIf="mode === 2">
+                    <div nz-col [nzSpan]="4" *ngFor="let img of imgs; index as i">
+                        <div class="img-container">
+                            <img [src]="img.url" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block" *ngIf="mode === 2">
+            <header class="genergy-block-header">
+                <h2>审核信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="2" nzFor="auditRemark">审核备注</nz-form-label>
+                            <nz-form-control nzSpan="22">
+                                <textarea
+                                    id="auditRemark"
+                                    nz-input
+                                    formControlName="auditRemark"
+                                    [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                                    placeholder="请输入审核备注"
+                                ></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="mode === 0 || mode === 1" class="footbar">
+            <button nz-button [nzType]="'default'" nzSize="large" (click)="save()">保存</button>
+            <button nz-button [nzType]="'primary'" nzSize="large" (click)="submit()">提交</button>
+        </div>
+    </form>
+
+    <div *ngIf="mode === 2 && assetInfo" class="footbar">
+        <button nz-button [nzType]="'primary'" nzSize="large" (click)="setStatus(assetInfo.assetId, 20)">
+            审核通过
+        </button>
+        <!-- <button nz-button [nzType]="'danger'" (click)="setStatus(assetInfo.assetId, 0)">审核驳回</button> -->
+    </div>
+</app-layout>

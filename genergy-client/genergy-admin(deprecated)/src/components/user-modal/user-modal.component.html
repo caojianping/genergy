@@ -1,0 +1,28 @@
+<nz-modal
+    [nzVisible]="visible"
+    [nzTitle]="OperateTypeNames[operateType] + '用户'"
+    [nzWidth]="500"
+    [nzFooter]="null"
+    (nzAfterOpen)="openUser()"
+    (nzOnCancel)="closeUser()"
+>
+    <form nz-form [formGroup]="userFormGroup" (ngSubmit)="saveUser(userFormGroup.value)">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="username" nzRequired>用户名</nz-form-label>
+            <nz-form-control [nzSpan]="14" nzErrorTip="请输入用户名">
+                <input id="username" nz-input formControlName="username" placeholder="请输入用户名" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *ngIf="operateType === 0">
+            <nz-form-label [nzSpan]="6" nzFor="password" nzRequired>密码</nz-form-label>
+            <nz-form-control [nzSpan]="14" nzErrorTip="请输入密码">
+                <input id="password" type="password" nz-input formControlName="password" placeholder="请输入密码" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="align-center">
+            <button nz-button nzType="primary" [disabled]="!userFormGroup.valid">保存</button>
+        </nz-form-item>
+    </form>
+</nz-modal>

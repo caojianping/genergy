@@ -1,0 +1,51 @@
+<nz-layout class="app-layout">
+    <nz-header>
+        <div class="app-header clearfix">
+            <a class="header-logo" href="/">
+                <i alt="新能财富通资产管理后台"></i>
+                <h1>新能财富通资产管理后台</h1>
+            </a>
+
+            <span class="header-collapse" (click)="isCollapsed = !isCollapsed">
+                <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+            </span>
+
+            <p class="header-title">
+                <span>您好，{{ username }} 欢迎登录</span>
+                <i nz-icon nzType="logout" nzTheme="outline" (click)="logout()"></i>
+            </p>
+        </div>
+    </nz-header>
+
+    <nz-layout>
+        <nz-sider nzCollapsible nzWidth="240px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+            <ul class="app-sider" nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+                <li
+                    nz-menu-item
+                    [nzTitle]="isCollapsed ? '首页' : ''"
+                    nz-tooltip
+                    nzTooltipPlacement="right"
+                    nzMatchRouter
+                >
+                    <a routerLink="/home">
+                        <i nz-icon nzType="home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li *ngFor="let menu of menus" nz-submenu nzOpen [nzTitle]="menu.name" [nzIcon]="menu.icon">
+                    <ul>
+                        <li *ngFor="let item of menu.items" nz-menu-item nzMatchRouter>
+                            <a [routerLink]="item.route">{{ item.name }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nz-sider>
+
+        <nz-content>
+            <div class="app-content">
+                <ng-content></ng-content>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>

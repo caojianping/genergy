@@ -1,0 +1,161 @@
+<app-layout>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>资产管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a routerLink="/asset/list">资产列表</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <form class="genergy-block genergy-searchbox" nz-form [formGroup]="queryFormGroup" (ngSubmit)="queryAssets()">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="putawaySerial">上架序号</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <input
+                            id="putawaySerial"
+                            nz-input
+                            formControlName="putawaySerial"
+                            placeholder="请输入上架序号"
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="plantName">电站名称</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <input id="plantName" nz-input formControlName="plantName" placeholder="请输入电站名称" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="status">资产状态</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <nz-select id="status" formControlName="status" nzPlaceHolder="请选择资产状态">
+                            <nz-option
+                                *ngFor="let AssetStatusName of AssetStatusNames; index as i"
+                                [nzLabel]="AssetStatusName"
+                                [nzValue]="i * 10"
+                            ></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="submitter">提交人</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <input id="submitter" nz-input formControlName="submitter" placeholder="请输入提交人" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="auditor">审核人</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <input id="auditor" nz-input formControlName="auditor" placeholder="请输入审核人" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="6" [nzOffset]="2">
+                <button nz-button nzType="primary">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="genergy-toolbar">
+        <button nz-button nzType="primary" routerLink="/asset/operation/0">新增上架</button>
+    </div>
+
+    <div class="genergy-block">
+        <header class="genergy-block-header inverse">
+            <h2>资产列表</h2>
+        </header>
+        <div class="genergy-block-body">
+            <nz-table
+                class="genergy-table"
+                [nzFrontPagination]="false"
+                [nzPageIndex]="assetPageResult.current"
+                [nzPageSize]="assetPageResult.size"
+                [nzData]="assetPageResult.records"
+                [nzTotal]="assetPageResult.total"
+                [nzLoading]="isLoading"
+                [nzPageSizeOptions]="[10, 50, 100, 200, 500, 1000]"
+                [nzShowSizeChanger]="true"
+                [nzScroll]="{x:'900px'}"
+                (nzPageIndexChange)="pageAssets('current', $event)"
+                (nzPageSizeChange)="pageAssets('size', $event)"
+            >
+                <thead>
+                    <tr>
+                        <th>上架序号</th>
+                        <th>电站名称</th>
+                        <th>提交人</th>
+                        <th>提交时间</th>
+                        <th>审核人</th>
+                        <th>审核时间</th>
+                        <th>资产状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let asset of assetPageResult.records">
+                        <td>{{ asset.putawaySerial }}</td>
+                        <td>
+                            <a routerLink="/asset/view" [queryParams]="{ assetId: asset.assetId }">{{
+                                asset.plantName
+                            }}</a>
+                        </td>
+                        <td>{{ asset.submitterName }}</td>
+                        <td>{{ asset.submitTime | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>{{ asset.auditorName }}</td>
+                        <td>{{ asset.auditTime | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>{{ AssetStatusNames[asset.assetStatus / 10] }}</td>
+                        <td *ngIf="asset.assetStatus === 0">
+                            <button
+                                nz-button
+                                nzType="primary"
+                                nzSize="small"
+                                routerLink="/asset/operation/1"
+                                [queryParams]="{ assetId: asset.assetId }"
+                            >
+                                编辑
+                            </button>
+                        </td>
+                        <td *ngIf="asset.assetStatus === 10">
+                            <button
+                                nz-button
+                                nzType="primary"
+                                nzSize="small"
+                                routerLink="/asset/operation/2"
+                                [queryParams]="{ assetId: asset.assetId }"
+                            >
+                                审核
+                            </button>
+                        </td>
+                        <td *ngIf="asset.assetStatus === 20">
+                            <button
+                                nz-button
+                                nzType="default"
+                                nzSize="small"
+                                routerLink="/asset/view"
+                                [queryParams]="{ assetId: asset.assetId }"
+                            >
+                                查看
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</app-layout>

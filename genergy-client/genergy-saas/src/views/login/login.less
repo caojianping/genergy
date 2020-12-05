@@ -1,0 +1,152 @@
+@import '../../less/vars.less';
+@import '../../less/mixins.less';
+
+.login {
+    position: relative;
+    z-index: @normal-index;
+    display: block;
+    width: 100%;
+    min-width: 600px;
+    height: 100vh;
+    min-height: 600px;
+    background: white url('../../assets/images/login/login-bg.jpg') no-repeat center center;
+    background-size: 100% 100%;
+
+    .login-main {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: @normal-index + 1;
+        display: block;
+        margin-top: -285px;
+        margin-left: -500px;
+        width: 1000px;
+        height: 570px;
+
+        .login-banner,
+        .login-content {
+            display: block;
+            float: left;
+            width: 500px;
+            height: 570px;
+        }
+
+        .login-banner {
+            background: white url('../../assets/images/login/login-banner.jpg') no-repeat center center;
+            background-size: 100% 100%;
+        }
+
+        .login-content {
+            background-color: white;
+
+            .login-form {
+                margin: 0 64px;
+
+                .login-title {
+                    margin: 80px 0 32px;
+                    .font-styles(26px, normal, 1, @blue, left);
+                }
+
+                .login-subtitle {
+                    margin: 32px 0 24px;
+                    .font-styles(24px, normal, 1, @black, left);
+                }
+
+                .ant-form-item {
+                    /deep/ .ant-form-item-label {
+                        height: 24px;
+                        line-height: 24px;
+                    }
+                }
+
+                .ant-btn-primary {
+                    margin-top: 16px;
+                }
+            }
+        }
+    }
+
+    @media screen {
+        @media (max-width: 1200px) {
+        }
+
+        @media (max-width: 992px) {
+            .login-main {
+                margin-top: -230px;
+                margin-left: -400px;
+                width: 800px;
+                height: 460px;
+
+                .login-banner,
+                .login-content {
+                    width: 400px;
+                    height: 460px;
+
+                    .login-form {
+                        margin: 0 48px;
+
+                        .login-title {
+                            margin: 40px 0 24px;
+                        }
+
+                        .login-subtitle {
+                            margin: 16px 0;
+                        }
+
+                        .ant-form-item {
+                            /deep/ .ant-form-item-label {
+                                height: 20px;
+                                line-height: 20px;
+                            }
+                        }
+
+                        .ant-btn-primary {
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-main {
+                margin-top: -230px;
+                margin-left: -250px;
+                width: 500px;
+                height: 460px;
+
+                .login-banner {
+                    display: none;
+                }
+
+                .login-content {
+                    width: 500px;
+                    height: 500px;
+
+                    .login-form {
+                        margin: 0 48px;
+
+                        .login-title {
+                            margin: 58px 0 32px;
+                        }
+
+                        .login-subtitle {
+                            margin: 16px 0;
+                        }
+
+                        .ant-form-item {
+                            /deep/ .ant-form-item-label {
+                                height: 20px;
+                                line-height: 20px;
+                            }
+                        }
+
+                        .ant-btn-primary {
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

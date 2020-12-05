@@ -1,0 +1,73 @@
+@import '../../../less/vars.less';
+@import '../../../less/mixins.less';
+
+.layout-project {
+    background-color: @bg-color;
+
+    .ant-layout-header,
+    .ant-layout-header .ant-row,
+    .ant-layout-header .ant-row .ant-col,
+    .ant-layout-header .ant-row .ant-col nav {
+        display: block;
+        height: @layout-height;
+        line-height: @layout-height;
+    }
+
+    .ant-layout-header {
+        position: relative;
+        padding: 0 32px;
+        background-color: white;
+        .box-shadow(0px 2px 4px 0px rgba(0, 0, 0, 0.1));
+        .transition(all 0.3s);
+
+        &:hover {
+            .box-shadow(0px 2px 8px 0px rgba(0, 0, 0, 0.2));
+        }
+
+        .ant-select,
+        .ant-btn {
+            color: black;
+            vertical-align: middle;
+        }
+
+        .ant-select {
+            width: 200px;
+            font-size: 16px;
+        }
+
+        nav {
+            font-size: 0;
+
+            a {
+                position: relative;
+                display: inline-block;
+                margin: 0 8px;
+                width: 90px;
+                font-size: 16px;
+                color: black;
+                .transition(all 0.3s);
+
+                &:hover,
+                &.active {
+                    color: @blue;
+                    background-color: #f5f5f5;
+                }
+            }
+        }
+    }
+
+    @media screen {
+        @media (max-width: 992px) {
+            .ant-layout-header nav a {
+                margin: 0 4px;
+                width: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ant-layout-header {
+                height: 120px;
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+<app-layout>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>电站管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a routerLink="/plant/list">电站列表</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <form class="genergy-block genergy-searchbox" nz-form [formGroup]="queryFormGroup" (ngSubmit)="queryPlants()">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="6">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="putawaySerial">上架序号</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <input
+                            id="putawaySerial"
+                            nz-input
+                            formControlName="putawaySerial"
+                            placeholder="请输入上架序号"
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="6">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="plantName">电站名称</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <input id="plantName" nz-input formControlName="plantName" placeholder="请输入电站名称" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="6">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="6" nzFor="putawayTimeRange">上架时间</nz-form-label>
+                    <nz-form-control nzSpan="18">
+                        <nz-range-picker
+                            id="putawayTimeRange"
+                            formControlName="putawayTimeRange"
+                            [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                            nzFormat="yyyy-MM-dd HH:mm"
+                            [nzPlaceHolder]="['开始时间', '结束时间']"
+                        ></nz-range-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="4" [nzOffset]="2">
+                <button class="mt4px" nz-button nzType="primary">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="genergy-block">
+        <header class="genergy-block-header inverse">
+            <h2>电站列表</h2>
+        </header>
+        <div class="genergy-block-body">
+            <nz-table
+                class="genergy-table"
+                [nzFrontPagination]="false"
+                [nzPageIndex]="plantPageResult.current"
+                [nzPageSize]="plantPageResult.size"
+                [nzData]="plantPageResult.records"
+                [nzTotal]="plantPageResult.total"
+                [nzLoading]="isLoading"
+                [nzPageSizeOptions]="[10, 50, 100, 200, 500, 1000]"
+                [nzShowSizeChanger]="true"
+                [nzScroll]="{x:'900px'}"
+                (nzPageIndexChange)="pagePlants('current', $event)"
+                (nzPageSizeChange)="pagePlants('size', $event)"
+            >
+                <thead>
+                    <tr>
+                        <th>电站名称</th>
+                        <th>上架序号</th>
+                        <th>上架时间</th>
+                        <th>装机功率(KWP)</th>
+                        <th>上网电价(元)</th>
+                        <th>累计发电(万度)</th>
+                        <th>累计已结算电费(元)</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let plant of plantPageResult.records">
+                        <td>{{ plant.plantName }}</td>
+                        <td>{{ plant.putawaySerial }}</td>
+                        <td>{{ plant.putawayTime | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>{{ plant.installedPower }}</td>
+                        <td>{{ plant.electricityPrice }}</td>
+                        <td>{{ plant.totalEnergy }}</td>
+                        <td>{{ plant.totalEnergy * plant.electricityPrice }}</td>
+                        <td>
+                            <button
+                                nz-button
+                                nzType="primary"
+                                nzSize="small"
+                                routerLink="/asset/energy/1"
+                                [queryParams]="{ id: plant.id }"
+                            >
+                                查看
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</app-layout>

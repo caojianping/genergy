@@ -1,0 +1,39 @@
+@import '../../../less/vars.less';
+@import '../../../less/mixins.less';
+
+.layout-project-data {
+    padding-top: 24px;
+    background-color: @bg-color;
+
+    .ant-menu {
+        height: 100%;
+        background-color: white;
+        border-right: none;
+        .box-shadow(0px 2px 8px 0px rgba(0, 0, 0, 0.15));
+        .transition(all 0.3s);
+
+        &:hover {
+            .box-shadow(0px 2px 8px 0px rgba(0, 0, 0, 0.3));
+        }
+
+        .ant-menu-item:first-child {
+            margin-top: 32px;
+        }
+
+        .ant-menu-item:not(.ant-menu-item-selected) a {
+            color: black;
+        }
+    }
+
+    .ant-layout-content {
+        margin: 0 32px 24px;
+        background-color: white;
+        .box-shadow(0px 2px 8px 0px rgba(0, 0, 0, 0.15));
+
+        .transition(all 0.3s);
+
+        &:hover {
+            .box-shadow(0px 2px 8px 0px rgba(0, 0, 0, 0.3));
+        }
+    }
+}

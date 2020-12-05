@@ -1,0 +1,430 @@
+@import './vars.less';
+@import './mixins.less';
+
+// 清除浮动样式
+.clearfix {
+    *zoom: 1;
+
+    &:after {
+        display: block;
+        height: 0;
+        content: '';
+        clear: both;
+        visibility: hidden;
+        overflow: hidden;
+    }
+}
+
+.fl {
+    float: left !important;
+}
+
+.fr {
+    float: right !important;
+}
+
+// flex布局
+.flex {
+    display: flex !important;
+}
+
+// 显示、消失样式
+.show {
+    display: block !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+// 文本对齐样式
+.align-left {
+    text-align: left !important;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.align-right {
+    text-align: right !important;
+}
+
+// 文本颜色样式
+.text-black {
+    color: @black !important;
+}
+
+.text-gray {
+    color: @gray !important;
+}
+
+.text-green {
+    color: #87d068 !important;
+}
+
+.text-red {
+    color: red !important;
+}
+
+.text-orange {
+    color: orange !important;
+}
+
+.text-blue {
+    color: @blue !important;
+}
+
+// Saas系统全局通用样式，带saas前缀
+.saas-spin {
+    &.ant-spin-nested-loading {
+        height: 100%;
+
+        .ant-spin-container {
+            height: 100%;
+            opacity: 0.88;
+        }
+
+        .ant-spin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 9999;
+            margin-top: -60px;
+            margin-left: -60px;
+            width: 120px;
+            height: 120px;
+            color: white;
+            border-radius: 4px;
+            background-color: rgba(50, 50, 50, 0.88);
+
+            .ant-spin-dot-item {
+                color: white;
+                background-color: white;
+            }
+        }
+    }
+}
+
+.saas-none {
+    padding: 32px 16px;
+    .font-styles(16px, normal, 1.5, orange, center);
+}
+
+.saas-block {
+    margin-top: 8px;
+    background-color: white;
+
+    &.search {
+        margin-right: 12px !important;
+        margin-left: 12px !important;
+
+        .ant-col {
+            margin-bottom: 12px;
+            // padding: 0  !important;
+        }
+
+        .ant-input,
+        .ant-select-selection,
+        .ant-calendar-picker-input {
+            border-radius: 2px;
+        }
+    }
+
+    &.data {
+        padding: 0 24px;
+    }
+
+    .saas-block-title {
+        .font-styles(16px, normal, 1.5, @black, left);
+    }
+
+    .saas-block-form {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 32px;
+
+        label {
+            width: 100px !important;
+            font-size: 16px !important;
+            text-align: left;
+        }
+
+        .ant-input-number {
+            width: 500px;
+        }
+
+        .ant-btn {
+            margin-left: 16px;
+            width: 80px;
+        }
+    }
+}
+
+.saas-tool {
+    display: flex;
+    justify-content: flex-end;
+    margin: 12px 0 24px;
+    width: 100%;
+
+    &.normal {
+        display: block;
+    }
+}
+
+.saas-search,
+.saas-add {
+    padding: 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.saas-search {
+    width: 90px;
+    height: 32px;
+    line-height: 30px;
+    .transition(all 0.3s);
+
+    &:hover {
+        opacity: 0.75;
+    }
+}
+
+.saas-add {
+    width: 140px;
+    height: 36px;
+    line-height: 34px;
+    .transition(all 0.3s);
+
+    &:hover {
+        opacity: 0.75;
+    }
+}
+
+.saas-link {
+    color: #569af5 !important;
+
+    &:hover {
+        color: @blue !important;
+    }
+}
+
+.saas-upload-btn {
+    margin-left: 32px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    background-color: #fafafa;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    .transition(all 0.3s ease);
+    cursor: pointer;
+
+    .anticon.anticon-plus,
+    p {
+        color: @gray;
+    }
+
+    .anticon.anticon-plus {
+        margin-top: 18px;
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    &:hover {
+        border-color: @blue;
+
+        .anticon.anticon-plus,
+        p {
+            color: @blue;
+        }
+    }
+}
+
+.saas-upload-prompt {
+    margin: 24px 0;
+    .font-styles(14px, normal, 1, @gray, left);
+}
+
+.saas-upload-download {
+    display: block;
+    .font-styles(14px, normal, 1, @blue, left);
+    cursor: pointer;
+}
+
+// 其他样式
+.project-container {
+    padding: 24px 32px;
+}
+
+.project-title {
+    padding: 8px 48px 24px;
+    .font-styles(14px, normal, 1.5, @gray, left);
+}
+
+.project-btns {
+    margin: 64px 0 32px;
+    padding-left: 30%;
+
+    .ant-btn {
+        margin: 0 16px;
+        width: 150px;
+    }
+}
+
+.project-block {
+    .project-block-title {
+        padding-left: 24px;
+        height: 40px;
+        .font-styles(14px, normal, 40px, black, left);
+        background-color: #f0f0f0;
+    }
+
+    &.project-block-shadow {
+        margin-bottom: 32px;
+        background-color: white;
+        .box-shadow(0px 3px 6px 0px rgba(156, 156, 156, 0.15));
+        .transition(all 0.3s);
+
+        &:hover {
+            .box-shadow(0px 3px 6px 0px rgba(156, 156, 156, 0.3));
+        }
+
+        .project-block-body {
+            padding: 16px;
+
+            & > .ant-row {
+                & > .ant-col.ant-col-8,
+                & > .ant-col.ant-col-24 {
+                    padding: 0 16px;
+                }
+            }
+        }
+    }
+
+    &.project-block-document {
+        .project-block-body {
+            padding: 24px 0;
+        }
+    }
+
+    &.project-block-upload {
+        .project-block-body {
+            .ant-form .ant-form-item {
+                margin-top: 32px;
+
+                &:last-child {
+                    margin-top: 64px;
+
+                    .ant-btn {
+                        margin: 0 16px;
+                        width: 120px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.project-block-basic {
+        .project-block-title {
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+        }
+
+        .project-block-body {
+            & > table {
+                width: 100%;
+
+                tr {
+                    th,
+                    td {
+                        padding: 3px 0;
+                        border-right: 1px solid #ddd;
+                        border-bottom: 1px solid #ddd;
+                    }
+
+                    th {
+                        width: 12.53%;
+                        .font-styles(14px, normal, 44px, @black, center);
+                        background-color: #f9f9f9;
+                    }
+
+                    td {
+                        width: 20.8%;
+                        .font-styles(14px, normal, 1.2, @black, center);
+                        background-color: white;
+
+                        &:last-child {
+                            border-right: none;
+                        }
+                    }
+
+                    &:last-child {
+                        th,
+                        td {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.document-item {
+    float: left;
+    width: 12.5%;
+
+    .document-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin: 16px auto;
+        height: 100px;
+        text-align: center;
+        opacity: 0.75;
+        .transition(all 0.3s);
+
+        & > i {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: 32px;
+            .font-styles(22px, normal, 1, red, center);
+            cursor: pointer;
+        }
+
+        & > a {
+            display: block;
+            padding-top: 16px;
+            cursor: pointer;
+
+            img {
+                display: inline-block;
+                max-width: 80px;
+                max-height: 50px;
+            }
+        }
+
+        & > h3 {
+            display: block;
+            .font-styles(14px, normal, 1, @black, center);
+            .text-ellipse(100px);
+        }
+
+        .saas-upload-btn {
+            margin-left: 0;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

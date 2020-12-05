@@ -1,0 +1,52 @@
+@import './vars.less';
+@import './mixins.less';
+
+.ant-breadcrumb {
+    padding: 16px 24px;
+
+    .ant-breadcrumb-link,
+    .ant-breadcrumb-link a {
+        color: black;
+    }
+
+    .ant-breadcrumb-link a:hover {
+        color: #40a9ff;
+    }
+}
+
+.ant-select,
+.ant-input-number,
+.ant-calendar-picker {
+    width: 100% !important;
+}
+
+.ant-table-wrapper {
+    .ant-table thead tr th,
+    .ant-table tbody tr td {
+        padding: 10px 8px;
+        text-align: center;
+    }
+}
+
+.ant-pagination {
+    margin: 24px 0 !important;
+    text-align: right;
+}
+
+.ant-btn.ant-btn-sm {
+    margin: 0 2px;
+    font-size: 12px;
+}
+
+.ant-form-item:not(.saas-upload-form) {
+    .ant-form-item-control-wrapper > .ant-form-item-control > .ant-form-item-children {
+        display: flex;
+
+        .saas-unit {
+            display: inline-block;
+            width: 40px;
+            .font-styles(14px, normal, 32px, @black, left);
+            text-indent: 4px;
+        }
+    }
+}

@@ -1,0 +1,94 @@
+<app-layout>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>系统管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a routerLink="/user/list">用户列表</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <form class="genergy-block genergy-searchbox" nz-form [formGroup]="queryFormGroup" (ngSubmit)="queryUsers()">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzSpan="4" nzFor="username">用户名</nz-form-label>
+                    <nz-form-control nzSpan="20">
+                        <input id="username" nz-input formControlName="username" placeholder="请输入用户名" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <button class="mt4px" nz-button nzType="primary">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="genergy-toolbar">
+        <button nz-button nzType="primary" (click)="addUser()">添加</button>
+    </div>
+
+    <div class="genergy-block">
+        <header class="genergy-block-header inverse">
+            <h2>用户列表</h2>
+        </header>
+        <div class="genergy-block-body">
+            <nz-table
+                class="genergy-table"
+                [nzFrontPagination]="false"
+                [nzPageIndex]="userPageResult.current"
+                [nzPageSize]="userPageResult.size"
+                [nzData]="userPageResult.records"
+                [nzTotal]="userPageResult.total"
+                [nzLoading]="isLoading"
+                [nzPageSizeOptions]="[10, 50, 100, 200, 500, 1000]"
+                [nzShowSizeChanger]="true"
+                [nzScroll]="{x:'800px'}"
+                (nzPageIndexChange)="pageUsers('page', $event)"
+                (nzPageSizeChange)="pageUsers('size', $event)"
+            >
+                <thead>
+                    <tr>
+                        <th>用户编号</th>
+                        <th>用户名</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of userPageResult.records">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.createTime | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>{{ user.modifyTime | date: 'yyyy/MM/dd HH:mm' }}</td>
+                        <td>
+                            <!-- <button nz-button nzType="default" nzSize="small" (click)="resetPassword(user.id)">
+                                重置密码
+                            </button>
+                            <button class="ml4px" nz-button nzType="primary" nzSize="small" (click)="editUser(user)">
+                                编辑
+                            </button> -->
+                            <button
+                                class="ml4px"
+                                nz-button
+                                nzType="default"
+                                nzSize="small"
+                                nzDanger
+                                (click)="removeUser(user.id)"
+                            >
+                                删除
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+
+    <app-user-modal
+        [operateType]="operateType"
+        [visible]="isVisible"
+        [user]="currentUser"
+        (onCancel)="handleModalCancel()"
+        (onOk)="handleModalOk($event)"
+    ></app-user-modal>
+</app-layout>

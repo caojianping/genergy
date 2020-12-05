@@ -1,0 +1,175 @@
+@import './vars.less';
+@import './mixins.less';
+
+// 清除浮动样式
+.clearfix {
+    *zoom: 1;
+
+    &:after {
+        display: block;
+        height: 0;
+        content: '';
+        clear: both;
+        visibility: hidden;
+        overflow: hidden;
+    }
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+// 显示、消失样式
+.show {
+    display: block !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+// 居中样式
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+// 全局内外边距样式
+.mt4px {
+    margin-top: 4px;
+}
+
+.ml4px {
+    margin-left: 4px;
+}
+
+.ml32px {
+    margin-left: 32px;
+}
+
+.ml64px {
+    margin-left: 64px;
+}
+
+// 全局antd样式
+.ant-breadcrumb {
+    padding-left: 16px;
+    height: 60px;
+    line-height: 60px;
+    color: @black;
+    background-color: white;
+}
+
+.ant-table {
+    thead > tr > th,
+    tbody > tr > td {
+        text-align: center;
+    }
+}
+
+// 全局通用样式
+.genergy-block {
+    margin: 16px;
+    background-color: white;
+    box-shadow: 0px 3px 10px 0px rgba(190, 190, 190, 0.2);
+
+    .genergy-block-header {
+        position: relative;
+        height: 50px;
+        background-color: @blue;
+
+        &::before {
+            position: absolute;
+            top: 13px;
+            bottom: 13px;
+            left: 0;
+            display: block;
+            width: 4px;
+            height: 24px;
+            content: '';
+            background-color: white;
+        }
+
+        h2 {
+            padding-left: 12px;
+            height: 50px;
+            .font-styles(16px, normal, 50px, white, left);
+        }
+
+        &.inverse {
+            height: 62px;
+            background-color: white;
+
+            &::before {
+                top: 19px;
+                background-color: @blue;
+            }
+
+            h2 {
+                height: 62px;
+                color: @blue;
+                line-height: 62px;
+            }
+        }
+    }
+}
+
+.genergy-searchbox {
+    padding: 24px 16px;
+
+    .ant-row .ant-col .ant-form-item {
+        margin-bottom: 16px;
+    }
+
+    .ant-row:last-child .ant-col .ant-form-item {
+        margin-bottom: 0;
+    }
+}
+
+.genergy-toolbar {
+    margin: 0 16px;
+    padding: 8px 0;
+
+    button:not(:first-child) {
+        margin-left: 10px;
+    }
+}
+
+.genergy-table {
+    table {
+        border-radius: 0;
+
+        thead tr th {
+            color: white;
+            background-color: @blue;
+            border-radius: 0 !important;
+        }
+    }
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

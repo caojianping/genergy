@@ -1,0 +1,364 @@
+<app-layout>
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>资产管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a routerLink="/asset/list">资产列表</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>资产信息</nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div *ngIf="assetInfo" class="asset-info">
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>电站信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6">电站名称</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.plantName }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="psId">电站PS编号</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.psId }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="code">电站编码S/N</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.code }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantType">电站类型</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ PlantTypeNames[assetInfo.plantType] }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantStatus">电站状态</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ PlantStatusNames[assetInfo.plantStatus] }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="installedPower">装机功率</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.installedPower }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="estimatedAnnualEnergy">预计年发电量</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.estimatedAnnualEnergy }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="actualAnnualEnergy">实际年发电量</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.actualAnnualEnergy }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="estimatedAnnualEnergyEarnings"
+                                >预计年发电收益</nz-form-label
+                            >
+                            <nz-form-control nzSpan="18">{{ assetInfo.estimatedAnnualEnergyEarnings }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="actualAnnualEnergyEarnings">实际年发电收益</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.actualAnnualEnergyEarnings }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="10" nzFor="estimatedAnnualEnergyMinEarningsRate"
+                                >预计年发电最小收益率</nz-form-label
+                            >
+                            <nz-form-control nzSpan="14">{{
+                                assetInfo.estimatedAnnualEnergyMinEarningsRate
+                            }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="10" nzFor="estimatedAnnualEnergyMaxEarningsRate"
+                                >预计年发电最大收益率</nz-form-label
+                            >
+                            <nz-form-control nzSpan="14">{{
+                                assetInfo.estimatedAnnualEnergyMaxEarningsRate
+                            }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="electricityPrice">上网电价</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.electricityPrice }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="energyTerm">发电年限</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.energyTerm }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="residualEnergyTerm">剩余发电年限</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.residualEnergyTerm }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="constructionCompany">建设公司</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.constructionCompany }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="completedDate">建成日期</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.completedDate }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="gridConnectedDate">并网日期</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.gridConnectedDate }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="regions">行政区划</nz-form-label>
+                            <nz-form-control nzSpan="18">{{
+                                assetInfo.province + assetInfo.city + assetInfo.district
+                            }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="address">详细地址</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.address }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="componentTotal">组件总数</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.componentTotal }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="componentSupplier">组件厂家</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.componentSupplier }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="componentModel">组件型号</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.componentModel }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="inverterSupplier">逆变器厂家</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.inverterSupplier }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="inverterModel">逆变器型号</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.inverterModel }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="collectorSupplier">采集器厂家</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.collectorSupplier }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="collectorModel">采集器型号</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.collectorModel }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>组织信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="companyName">业主/企业名称</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.companyName }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="companyType">企业类型</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ CompanyTypeNames[assetInfo.companyType] }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="companyAddress">公司地址</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.companyAddress }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="corpName">法人代表</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.corpName }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="corpCertType">法人证件类型</nz-form-label>
+                            <nz-form-control nzSpan="18">{{
+                                CorpCertTypeNames[assetInfo.corpCertType]
+                            }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="corpCertNo">法人证件号码</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.corpCertNo }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>上架信息</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantConstructionValue">电站建设价值</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.plantConstructionValue }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantPresellValue">电站预售价值</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.plantPresellValue }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantDepreciationRate">电站折旧率</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.plantDepreciationRate }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="8">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="6" nzFor="plantFeature">电站特点</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.plantFeature }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                            <nz-form-label nzSpan="2" nzFor="description">描述</nz-form-label>
+                            <nz-form-control nzSpan="18">{{ assetInfo.description }}</nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>相关证件文件</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="4" *ngFor="let name of CertFileTypeNames; index as i">
+                        <p class="cert-title">{{ name }}</p>
+                        <div *ngIf="certFiles.get(i + 1)" class="img-container">
+                            <img [src]="UploadUrl + certFiles.get(i + 1)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>相关法律文件</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="4" *ngFor="let name of LegalFileTypeNames; index as i">
+                        <div *ngIf="legalFiles.get(i + 1)" class="img-container">
+                            <a [href]="UploadUrl + legalFiles.get(i + 1)" target="_blank">{{ name + '.pdf' }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="genergy-block">
+            <header class="genergy-block-header">
+                <h2>现场图片</h2>
+            </header>
+            <div class="genergy-block-body">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="4" *ngFor="let img of imgs; index as i">
+                        <div class="img-container">
+                            <img [src]="img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-layout>

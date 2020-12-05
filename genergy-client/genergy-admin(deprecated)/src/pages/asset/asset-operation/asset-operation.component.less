@@ -1,0 +1,57 @@
+@import '../../../less/vars.less';
+@import '../../../less/mixins.less';
+
+@header-height: 50px;
+
+:host {
+    .asset-form {
+        padding: 16px 0 32px;
+
+        .genergy-block .genergy-block-body {
+            padding: 24px 16px;
+
+            nz-input-number,
+            nz-select,
+            nz-date-picker,
+            nz-date-picker /deep/ .ant-calendar-picker,
+            nz-cascader {
+                width: 100%;
+            }
+
+            .upload-img {
+                width: 100%;
+                max-width: 100px;
+                max-height: 100px;
+            }
+
+            /deep/ .ant-upload-list-item {
+                margin-right: 32px;
+            }
+
+            /deep/ nz-form-label {
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                height: 41px;
+                line-height: 1;
+
+                label {
+                    padding-right: 4px;
+                    width: 100%;
+                    text-align: right;
+                    white-space: normal;
+                }
+            }
+        }
+    }
+
+    .footbar {
+        padding: 48px 0 32px;
+        text-align: center;
+
+        .ant-btn {
+            margin: 0 16px;
+            width: 120px;
+        }
+    }
+}

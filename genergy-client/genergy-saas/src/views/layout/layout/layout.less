@@ -1,0 +1,85 @@
+@import '../../../less/vars.less';
+@import '../../../less/mixins.less';
+
+.layout {
+    min-height: 100vh;
+
+    .ant-layout-header,
+    .ant-layout-header .ant-row,
+    .ant-layout-header .ant-row .ant-col,
+    .ant-layout-header .ant-row .ant-col .logo,
+    .ant-layout-header .ant-row .ant-col nav {
+        display: block;
+        height: @layout-height;
+        line-height: @layout-height;
+    }
+
+    .ant-layout-header {
+        padding: 0 32px;
+        background-color: @blue;
+
+        .logo {
+            .font-styles(20px, normal, @layout-height, white, left);
+        }
+
+        nav {
+            font-size: 0;
+
+            a {
+                position: relative;
+                z-index: @header-index;
+                display: inline-block;
+                margin: 0 16px;
+                height: @layout-height;
+                .font-styles(18px, normal, @layout-height, white, left);
+                opacity: 0.75;
+                .transition(all 0.3s);
+
+                &:hover {
+                    font-size: 20px;
+                    opacity: 1;
+                }
+
+                &.active {
+                    font-size: 20px;
+                    opacity: 1;
+
+                    &::after {
+                        position: absolute;
+                        left: 50%;
+                        bottom: 0;
+                        z-index: @header-index + 1;
+                        display: block;
+                        margin-left: -7.5px;
+                        width: 0;
+                        height: 0;
+                        content: '';
+                        border: 7.5px solid transparent;
+                        border-bottom-color: white;
+                    }
+                }
+            }
+        }
+
+        .ant-dropdown-trigger {
+            & > span,
+            & > i {
+                font-size: 15px;
+                color: white;
+                opacity: 0.75;
+                .transition(all 0.3s);
+            }
+
+            & > i {
+                margin-left: 4px;
+            }
+
+            &:hover {
+                & > span,
+                & > i {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

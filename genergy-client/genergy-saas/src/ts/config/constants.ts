@@ -1,0 +1,8 @@
+export const CONSTANTS = {
+    TIMEOUT: 15000, // 超时时间15秒
+    HEADER_TOKEN: 'token', // 请求头token
+    CACHE_TOKEN_INFO: 'SAAS_TOKEN_INFO', // 缓存tokenInfo
+    CACHE_PROJECT_BRIEFS: 'CACHE_PROJECT_BRIEFS', // 缓存项目简要信息
+    CACHE_PROJECT_ARCHIVE: 'CACHE_PROJECT_ARCHIVE', // 缓存项目存档信息
+    CACHE_DOCUMENT_GROUPS: 'CACHE_DOCUMENT_GROUPS' // 缓存文档分组信息
+};
